@@ -5,16 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Luke's Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <span class='navbar-brand mx-auto h1'>Weather Dashboard</span>
     </nav>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <label>Search For a Cities Weather Forcast:</label>
+                        <div class="input-group mb3">
+                            <input type="text" class="form-control" placeholder="Charlotte">
+                                <div class=input-group-append>
+                                    <button class="btn btn-success" type="submit">
+                                        <i class="fas fa-search aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div id="favCities"></div>
+                        </div>
+                    </div>   
+                </div>             
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="card-title" id="cityReturn"></h1>
+                            <p1 id="todaysDate"></p1>
+                            <ul>
+                                <li>
+                                    <img>
+                                </li>
+                                <li class="card-text" id="tempToday"></li>
+                                <li class="card-text" id="humidityToday"></li>
+                                <li class="card-text" id="windToday"></li>
+                                <li class="card-text" id="uvToday"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h2>Five Day Forecast</h2>
+                </div>
+                <div class="row" id="fiveDayForecast"></div>
+                </div>
+            </div>
+        </div>
+    </div>      
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js' integrity='sha256-H9jAz//QLkDOy/nzE9G4aYijQtkLt9FvGmdUTwBk6gs=' crossorigin='anonymous'></script>
+    <script src="assets/javascript/script.js" type="text/javascript"></script>
 </body>
 </html>
