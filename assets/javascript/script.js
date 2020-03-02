@@ -1,9 +1,12 @@
 $(document).ready(function(){
 
     var apiKey = "4f192ce4ca46b7df0daa43508a144f12";
-    var location = "charlotte"
+    var location = ""
 
-    function currentWeather () {
+    $("#searchBtn").on("click", function CurrentWeather (e){
+        $("#fiveDayForcastDiv").empty();
+        e.preventDefault();
+        var location = $("#searchInput").val()
     
     var cfQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey;
     var todaysDate = moment().format("LLLL");
@@ -40,6 +43,8 @@ $(document).ready(function(){
             });
         };
         
+        var fiveDayForcastDiv = $("#fiveDayForecast");
+        $("#fiveDayForcastDiv").empty();
         function fiveDayForecast () {
         var ffQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + apiKey;
        
@@ -47,31 +52,37 @@ $(document).ready(function(){
             url: ffQueryURL,
             method: "GET"
           }).then(function(responseFF) {
-            console.log(responseFF);
-            console.log(responseFF.list[0],responseFF.list[1])
 
-            for (var d = 1; d <= 5; d++) {
-            var futureDates = moment().add(d, 'days').calendar()
-            console.log(futureDates)
-            }
-            
-            
-            
-            for (var i = 0; i <= 4; i++) {
+            for (var i = 1; i <= 5; i++) {
+            var futureDates = moment().add(i, 'days').calendar();
+                console.log(futureDates)
+                cardDiv = $("<div>");
+                cardDiv.addClass("col mx-1")
+                cardBody = $("<div>");
+                cardBody.addClass("card-body forecast-card");
+                cardTitle = $("<h5>").text(futureDates)
                 
-        
+                cardDiv.append(cardBody);
+                cardBody.append(cardTitle);
                 
-                
+                fiveDayForcastDiv.append(cardDiv);
+
                 var forecastArray = responseFF.list[i];
-                var forcastTemp = ("Forcast Temperature: " + ((responseFF.list[i].main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F";
-                var forcastHumidity = ("Forcast Humidity: " + responseFF.list[i].main.humidity + "%")
-                
-
+                var forcastTemp = $("<li>").text(("Forcast Temperature: " + ((responseFF.list[i].main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F");
+                var forcastHumidity = $("<li>").text("Forcast Humidity: " + responseFF.list[i].main.humidity + "%");
+                forcastTemp.addClass("card-text");
+                forcastHumidity.addClass("card-text")
+                var unorderedList  = $("<ul>")
+                unorderedList.append(forcastTemp, forcastHumidity);
+                cardTitle.append(unorderedList);
                
                 console.log(forcastTemp)
                 console.log(forcastHumidity)
 
             }
+            
+            
+            
         });
         };
 
@@ -79,15 +90,13 @@ $(document).ready(function(){
         currentUVIndex()
         fiveDayForecast()
 
-
-
-
     });
-    };      
+    });      
 
     
-
-       
+    // Search Button Location
+    
+     
 
         
     
@@ -99,5 +108,5 @@ $(document).ready(function(){
 
 
    
-    currentWeather()
+    //currentWeather()
 });

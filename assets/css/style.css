@@ -6,3 +6,11 @@
 ul {
     list-style-type: none;
 }
+
+li {
+    font-size: 8pt;
+}
+
+.forecast-card {
+    background-color: lightgreen;
+}
