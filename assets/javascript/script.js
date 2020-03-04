@@ -1,8 +1,10 @@
 $(document).ready(function(){
 
     var apiKey = "4f192ce4ca46b7df0daa43508a144f12";
-    var location = "Charlotte"
+    var location = ""
     var favArray = [];
+    var todaysDate = moment().format("LLLL");
+    $("#todaysDate").text(todaysDate);
     
     function createBtn () {
         var renderFavCity = JSON.parse(localStorage.getItem("searchCities"));
@@ -15,7 +17,7 @@ $(document).ready(function(){
             type: "button",
             value: city,
             idenfifier: index,
-            class: "row col-md-10 btn btn-light"
+            class: "row col-md-10 city-btn btn btn-dark"
         })
         $("#favCities").append(buttonInfo);
         })
@@ -36,7 +38,6 @@ $(document).ready(function(){
       }).then(function(responseCF) {
         console.log(responseCF);
         $("#cityReturn").text(responseCF.name);
-        $("#todaysDate").text(todaysDate);
         var cWeatherIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + responseCF.weather[0].icon + ".png");
          $("#weatherIcon").append(cWeatherIcon);
         var tempFaren = ("Current Tempreture: " + ((responseCF.main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F";
@@ -90,7 +91,7 @@ $(document).ready(function(){
             var futureDates = moment(responseFF.list[i].dt_txt).format("MM/DD/YYYY");;
                 console.log(futureDates)
                 cardDiv = $("<div>");
-                cardDiv.addClass("col mx-1")
+                cardDiv.addClass("col col-5-day mx-1")
                 cardBody = $("<div>");
                 cardBody.addClass("card-body forecast-card");
                 cardTitle = $("<h5>").text(futureDates)
@@ -102,8 +103,8 @@ $(document).ready(function(){
 
                 var fWeatherIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + responseFF.list[i].weather[0].icon + ".png");
                 cardTitle.append(fWeatherIcon);
-                var forcastTemp = $("<li>").text(("Forcast Temperature: " + ((responseFF.list[i].main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F");
-                var forcastHumidity = $("<li>").text("Forcast Humidity: " + responseFF.list[i].main.humidity + "%");
+                var forcastTemp = $("<li>").text(("Temperature: " + ((responseFF.list[i].main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F");
+                var forcastHumidity = $("<li>").text("Humidity: " + responseFF.list[i].main.humidity + "%");
                 forcastTemp.addClass("card-text");
                 forcastHumidity.addClass("card-text")
                 var unorderedList  = $("<ul>")
@@ -120,6 +121,7 @@ $(document).ready(function(){
         });
         };
 
+        
 
         currentUVIndex()
         fiveDayForecast()
@@ -129,17 +131,18 @@ $(document).ready(function(){
 
     
     // Search Button Location
-    
+
     $("#searchBtn").on("click", function (e) {
-
         var favCity = $("#searchInput").val().trim();
-        favArray.push(favCity);
-        localStorage.setItem("searchCities", JSON.stringify(favArray));
-        $("#searchInput").val("");
-        createBtn ();
+        if (favCity === "") {}
+         else {
+            favArray.push(favCity);
+            localStorage.setItem("searchCities", JSON.stringify(favArray));
+            $("#searchInput").val("");
+            createBtn ();
+
+        }
     });
-
-
 
     createBtn()
     currentWeather()
