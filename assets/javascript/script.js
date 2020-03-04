@@ -1,14 +1,18 @@
 $(document).ready(function(){
-
+    // API Key Retrieved from Creating Account for Open Weather
     var apiKey = "4f192ce4ca46b7df0daa43508a144f12";
     var location = ""
+    // Created an Empty Array for Favorite Cities
     var favArray = [];
+    // Set todays date for Current Weather 
     var todaysDate = moment().format("LLLL");
     $("#todaysDate").text(todaysDate);
     
+    // Function to retrieve search cities from local Storage and creates an button for them
     function createBtn () {
         var renderFavCity = JSON.parse(localStorage.getItem("searchCities"));
         $("#favCities").empty()
+        // If statement that prevents null values from being created as buttons
         if (renderFavCity === null) {
         return
         }else {
@@ -24,7 +28,7 @@ $(document).ready(function(){
         }             
     };
 
-
+    // On click function that takes the value of the button selected and searches for its weather output. 
     $(document).on("click", "input", function () {                                      
 
         var location = $(this).attr("value")                           
@@ -36,9 +40,9 @@ $(document).ready(function(){
     function currentWeather (){
     
     
-    
+    //URL Query for current weather by location. 
+
     var cfQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey;
-    var todaysDate = moment().format("LLLL");
     
     $.ajax({
         url: cfQueryURL,
@@ -60,8 +64,9 @@ $(document).ready(function(){
         console.log(lat)
         console.log(lon)
         
+        // Function to get UV Index
         function currentUVIndex (){
-            
+            //URL Query for current weather UV index by longitude and latitude from current weather api.  
             uxQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
             $.ajax({
@@ -85,6 +90,7 @@ $(document).ready(function(){
 
         };
         
+        // Function to find Five Day Forcast by City ID
         var fiveDayForcastDiv = $("#fiveDayForecast");
         $("#fiveDayForcastDiv").empty();
         function fiveDayForecast () {
@@ -94,7 +100,7 @@ $(document).ready(function(){
             url: ffQueryURL,
             method: "GET"
           }).then(function(responseFF) {
-
+            // For Loop with increases by 8 every time it plays to get future dates weather
             for (var i = 7; i <= 40; i+=8)  {
             var futureDates = moment(responseFF.list[i].dt_txt).format("MM/DD/YYYY");;
                 console.log(futureDates)
@@ -108,7 +114,7 @@ $(document).ready(function(){
                 cardBody.append(cardTitle);
                 
                 fiveDayForcastDiv.append(cardDiv);
-
+                //Creates a image from API to display expected weather type (rain, sun, clouds etc)
                 var fWeatherIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + responseFF.list[i].weather[0].icon + ".png");
                 cardTitle.append(fWeatherIcon);
                 var forcastTemp = $("<li>").text(("Temperature: " + ((responseFF.list[i].main.temp - 273.15) *1.8 + 32).toPrecision(2)) + "F");
@@ -129,8 +135,7 @@ $(document).ready(function(){
         });
         };
 
-        
-
+        //calls UV Index and Five Day Forecast Functions
         currentUVIndex()
         fiveDayForecast()
 
@@ -141,7 +146,7 @@ $(document).ready(function(){
     // Search Button Location
 
     $("#searchBtn").on("click", function (e) {
-
+        // Validates Weather the input was a valid city name for weather functions. 
         var cityInput = $("#searchInput").val().trim();
 
         var inputURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&units=imperial&appid=" + apiKey;
@@ -165,7 +170,7 @@ $(document).ready(function(){
     });
 
     function searchBtn () {
-
+        //Sets a valid search city to local storage. 
         var favCity = $("#searchInput").val().trim();
         if (favCity === "") {}
          else {
