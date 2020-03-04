@@ -25,6 +25,14 @@ $(document).ready(function(){
     };
 
 
+    $(document).on("click", "input", function () {                                      
+
+        var location = $(this).attr("value")                           
+        console.log(location)                     
+        $("#fiveDayForecast").empty();                
+        $("#weatherIcon").empty()                        
+        currentWeather()  
+
     function currentWeather (){
     
     
@@ -128,7 +136,7 @@ $(document).ready(function(){
 
     });
     };      
-
+    });
     
     // Search Button Location
 
