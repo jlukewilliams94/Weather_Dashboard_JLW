@@ -14,3 +14,21 @@ li {
 .forecast-card {
     background-color: lightgreen;
 }
+
+.city-btn {
+    margin-top: 0.3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-margin {
+    margin-top: 1rem;
+
+}
+
+.col-5-day {
+    padding: 0px;
+    margin-top: 1rem!important;
+    border-radius: 0.5rem;
+}
