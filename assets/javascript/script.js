@@ -141,6 +141,31 @@ $(document).ready(function(){
     // Search Button Location
 
     $("#searchBtn").on("click", function (e) {
+
+        var cityInput = $("#searchInput").val().trim();
+
+        var inputURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&units=imperial&appid=" + apiKey;
+        
+        $.ajax({
+            url: inputURL,
+            method: "GET",
+            success: 
+                function () {
+                    searchBtn();
+                },
+                statusCode: {
+                    404: function() {
+                        console.log("Not a City");
+                        alert("Not A City, Try Again!");
+                    }
+                }
+        })
+
+
+    });
+
+    function searchBtn () {
+
         var favCity = $("#searchInput").val().trim();
         if (favCity === "") {}
          else {
@@ -148,10 +173,13 @@ $(document).ready(function(){
             localStorage.setItem("searchCities", JSON.stringify(favArray));
             $("#searchInput").val("");
             createBtn ();
-
         }
-    });
+
+
+    }
+
+
 
     createBtn()
-    currentWeather()
+    
 });
