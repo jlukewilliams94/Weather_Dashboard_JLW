@@ -140,6 +140,7 @@ $(document).ready(function(){
     });
 
 
+
     createBtn()
     currentWeather()
 });
