@@ -67,7 +67,7 @@ $(document).ready(function(){
         // Function to get UV Index
         function currentUVIndex (){
             //URL Query for current weather UV index by longitude and latitude from current weather api.  
-            uxQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
+            uxQueryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
             $.ajax({
                 url: uxQueryURL,
